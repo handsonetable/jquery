@@ -1,0 +1,30 @@
+<style>
+#suggest {
+    width: 200px;
+    height: 100px;
+    background-color: silver;   
+}
+</style>
+
+<input id="yourinput" />
+
+<div id="suggest">dropdown</div>
+
+
+<script>
+$(function() {
+
+//except dropdown when clicking document it hides
+    $(document).click(function(e) {
+        if (!$(e.target).is("#suggest")) {
+            $("#suggest").hide();
+        }
+    });
+    
+    //when typing inside input the dropdown shows
+    $("#yourinput").keyup(function() {
+        $("#suggest").show();
+    });
+
+});
+</script>

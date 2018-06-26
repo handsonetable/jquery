@@ -1,0 +1,19 @@
+
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+ <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+id="autocomplete-1"
+
+
+$(function() {
+            var availableTutorials  =  [
+               "ActionScript",
+               "Bootstrap",
+               "C",
+               "C++",
+            ];
+            $( "#automplete-1" ).autocomplete({
+               source: availableTutorials
+            });
+         });

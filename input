@@ -1,0 +1,25 @@
+//search box
+
+jQuery('.m-list-search__form-input').keyup(function(){
+			$('.result_body').css('display','none');
+			//$('.result_body').fadeOut();
+			$('.doLoading').show();
+			searchText = $(this).val();
+			//alert(searchText.length);	
+			if(searchText.length>0){
+				$('.result_body').fadeIn(400);
+				$http.get(BASE_URL+'/api/recruit/searchApplicants?searchText='+searchText).then(function(response) {
+					if(response.data.status == 1){
+						$scope.searchResult = response.data.result;
+						$('.result_body').html('');
+						angular.forEach($scope.searchResult, function(value, key){
+							$('.result_body').prepend('<div class="search__results" style="display: block;line-height: 9px;border-top:1px dotted #e3e3e3;"><p style="font-weight:normal;margin-top: 15px;margin-bottom:6px;"><a href="javascript:;" class="openApplicant" data-id="'+value.aid+'">'+value.name+'</a></p><p style="line-height: 15px;">'+value.email+'</p></div>');
+						});
+						//$('.doLoading').hide();
+					}else{
+						//$('.result_body').css('display','none');
+						$('.result_body').html('');
+						$('.result_body').prepend('<div class="search__results" style="display: block;line-height: 9px;border-top:1px dotted #e3e3e3;"><p style="font-weight:normal;text-align:center;margin-top: 100px;">No applicants found !</p></div>');
+						//$('.doLoading').hide();
+					}
+				});

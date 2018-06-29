@@ -10,3 +10,12 @@ $(document).keydown(function(e) {
                 $('.m-list-search__form-input').focus();
             } 
         });	
+        
+        
+        
+        
+        
+        
+        
+        
+https://css-tricks.com/snippets/javascript/javascript-keycodes/

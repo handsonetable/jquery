@@ -1,4 +1,6 @@
 //keyboard event
+
+//f9 click search drop open
 $(document).keydown(function(e) {
             if(e.which == 120) { 
                 $('.m-list-search__form-input').val('');
@@ -13,8 +15,17 @@ $(document).keydown(function(e) {
         
         
         
-        
-        
+  //escape click close dropdown 
+       $(document).keydown(function(e) {
+            if(e.which == 27) { 
+                $('.m-list-search__form-input').val('');
+                $('.result_body').html('');
+                $('.result_body').fadeOut();
+                $('.result_body').css('display','none');
+                //$('.m-list-search__form-input').attr('autofocus');
+                $('#m_quicksearch_close').click()
+            } 
+        });  
         
         
         

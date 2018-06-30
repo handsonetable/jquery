@@ -23,3 +23,8 @@ jQuery('.m-list-search__form-input').keyup(function(){
 						//$('.doLoading').hide();
 					}
 				});
+
+
+//reference
+//click input reset value to empty:
+	onclick="document.getElementById('myInput').value = ''"

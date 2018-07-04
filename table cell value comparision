@@ -1,0 +1,10 @@
+//comparing table cell and providing function
+
+ $('tbody tr').each(function(){
+    	var second=$('td:eq(1)', this).html();
+        var third=$('td:eq(2)', this).html();
+        if((second=='')&&(third=='')){
+        	$(this).remove();
+        }	
+        
+    });

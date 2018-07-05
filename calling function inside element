@@ -1,0 +1,1 @@
+onClick="getElementById('userProfile_tab_link').click();getElementById('m_state').focus();" //calling click -> focus input

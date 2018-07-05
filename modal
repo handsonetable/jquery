@@ -8,3 +8,6 @@
     $("#click-me").click(function() {
        $("#popup").modal("show");             
     });
+
+//In html //data-keybord- disable outside click or keyboard esc when modal opens
+<div class="modal fade" id="myModal" data-keyboard="false" data-backdrop="static"> 

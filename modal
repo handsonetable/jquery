@@ -1,0 +1,10 @@
+//disable outside click when modal opens
+    $("#popup").modal({
+        show: false,
+        backdrop: 'static'
+    });
+    
+//open modal when click button
+    $("#click-me").click(function() {
+       $("#popup").modal("show");             
+    });

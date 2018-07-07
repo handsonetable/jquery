@@ -1,0 +1,18 @@
+//form submit
+  $('#form-login').submit(function (e) {
+          e.preventDefault;
+          $('.btnLogin').attr('disabled','');
+          $('.loader').fadeIn();
+          var data = $(this).serialize();
+          $.post(window.location.href, data, function (res) {
+              if (res == 1) {
+                  alert("Logged in Successfully!");
+                  window.location.href = "dashboard.php";
+              } else {
+                  alert("Invalid Credential! Please try again!")
+              }
+              $('.btnLogin').prop('disabled',false);
+              $('.loader').fadeOut();
+          });
+          return false;
+      });

@@ -1,0 +1,44 @@
+	$('#send_inv').click(function() {
+				swal({
+					title: 'Send Invite',
+					type: 'info',
+					input:'email',
+					showCancelButton: true,
+					confirmButtonText: 'Invite!',
+					cancelButtonText: 'No, cancel!',
+					reverseButtons: true
+				}).then(function(result){
+					if (result.value) {
+						var data={"email":result.value};
+						$.ajax({
+							type:"POST",
+							url:'send_invite.php',
+							data:data,
+							success: function (data) {
+								if(data == '1'){
+									swal(
+										'Invited! '+result.value,
+										'Invitation has bee sent',
+										'success'
+									)
+								}
+								else{
+									swal(
+										'Invited! '+result.value,
+										'Invitation not sent',
+										'error'
+									)
+								}
+							}
+						});
+
+					} else if (result.dismiss === 'cancel') {
+						swal(
+							'Cancelled',
+							'No one invited...',
+							'error'
+						)
+					}
+				});
+
+			});

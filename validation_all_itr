@@ -1,0 +1,335 @@
+ <script>
+  $(document).on('change','#pan', function(){
+  var check_pan = document.getElementById('pan').value;
+  var firstName= document.getElementById('first_name').value;
+  if(check_pan!=''){
+  $.ajax({
+  type: "POST",
+  data: {pan_data: check_pan,NameOrOrgName: firstName,},
+  success: function(data) {
+  if(data=="new_user"){
+  toastr.success(" new pan Information");
+  }else{
+        toastr.info("already exist");
+      }
+  }
+  });
+  }
+  });
+  /* email1 validation */
+  function email_validiation(email1) {
+  var regpan1 = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  if (regpan1.test(email1) == false) {
+  $("#email1_err").html('Email Format Invalid').show().fadeOut(3000);
+  $("#email1").val('');
+  $('#email1').focus();
+  }
+  }
+  /* email1 validation */
+  function email2_valdiation(email2) {
+  var regpan = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  if (regpan.test(email2) == false) {
+  $("#email2_err").html('Email Format Invalid').show().fadeOut(3000);
+  $("#email2").val('');
+  $('#email2').focus();
+  }
+  }
+  function pan_validate(pan)
+  {
+  var regpan = /^([a-zA-Z]){3}([hHpP]){1}([a-zA-Z]){1}([0-9]){4}([a-zA-Z]){1}?$/;
+  if(regpan.test(pan) == false)
+  {
+  $("#pan_err").html("your PAN format is invalid! 4th character Must Be 'P' or 'H'").show().fadeOut(3000);
+  $("#pan").focus();
+  }
+  else
+  {
+  var str=document.getElementById("pan").value;
+  var res = str.toUpperCase();
+  document.getElementById("pan").value = res;
+  }
+  }
+  function phone_validation(phone_no) {
+  var regpan = /^[1-9]\d{1,4}-\d{6,8}$/;
+  if (regpan.test(phone_no) == false) {
+  $("#phone_err").html('PhoneNumber Format Invalid valid format is 444-242424').show().fadeOut(6000);
+  $('#phone_no').focus();
+  } else {
+  var phoneno = document.getElementById('phone_no').value;
+  var res = phoneno.split("-");
+  var result1 = res[0];
+  var result2 = res[1];
+  $("#STDcode").val(result1);
+  $("#PhoneNo").val(result2);
+  }
+  }
+  //mobile number 2
+  function mob2_validation(mob2_no) {
+  var regpan = /^[1-9]\d{1,4}-\d{6,11}$/;
+  if (regpan.test(mob2_no) == false) {
+  $("#mob2_err").html('MobileNumber Format Invalid valid format is 44466-2424246666').show().fadeOut(6000);
+  $('#mob2_no').focus();
+  } else {
+  var mobno2 = document.getElementById('mob2_no').value;
+  var res = mobno2.split("-");
+  var result1 = res[0];
+  var result2 = res[1];
+  $("#CountryCodeMobileNoSec").val(result1);
+  $("#MobileNoSec").val(result2);
+  }
+  }
+  //mobile number-1
+  /* $(document).change('#mobileno1',function () {
+  $mobile1_val=$('#mobileno1').val();
+  $mobilenumber_count=$mobile1_val.length;
+  if($mobilenumber_count<10){
+  $("#errmsg6").html(" Please Enter Valid Mobile Number").show().fadeOut(5000);
+  $('#mobileno1').focus();
+  }
+  }); */
+  //Aadhar number-
+  /* $(document).on('change','#aadhar',function () {
+  $aadhar_val=$(this).val();
+  $aadhar_count=$aadhar_val.length;
+  if($aadhar_count<12){
+  $('#aadhar').focus();
+  $("#errmsg8").html(" Please Enter Valid Aadhar Number").show().fadeOut(5000);
+  } else{
+  $(".aadharid").hide();
+  $(".AadhaarEnrolmentId").prop("readonly",true);
+  }
+  }); */
+  $(document).ready(function () {
+  var STDcode="<?php
+  echo $STDcode;
+  ?>";
+  var PhoneNo="<?php
+  echo $PhoneNo;
+  ?>";
+  var phone_number=STDcode+'-'+PhoneNo;
+  $("#STDcode").val(STDcode);
+  $("#PhoneNo").val(PhoneNo);
+  $("#phone_no").val(phone_number);
+  var CountryCodeMobileNoSec="<?php
+  echo $CountryCodeMobileNoSec;
+  ?>";
+  var MobileNoSec="<?php
+  echo $MobileNoSec;
+  ?>";
+  var mobile2_number=CountryCodeMobileNoSec+'-'+MobileNoSec;
+  $("#CountryCodeMobileNoSec").val(CountryCodeMobileNoSec);
+  $("#MobileNoSec").val(MobileNoSec);
+  $("#mob2_no").val(mobile2_number);
+  var aadharid="<?php
+  echo $AadhaarEnrolmentId;
+  ?>";
+  if(aadharid==""){
+  $(".aadharid").hide();
+  }
+  $('#personal_information').on('submit', function(e) {
+  if (!$('#personal_information').valid()) return false;
+  $.ajax({
+  type: "POST",
+  data: $("#personal_information").serialize(),
+  success: function(data) {
+  if(data=="update"){
+  toastr.info("Information Updated Successfully");
+  setTimeout("location.href= 'https://incometax.indiafilings.com/t/itr-2/2018-19/filing-status.php';", 300);
+  }
+  else{
+  toastr.success("Information  Inserted Successfully");
+  setTimeout("location.href= 'https://incometax.indiafilings.com/t/itr-2/2018-19/filing-status.php';", 300);
+  }
+  }
+  });
+  e.preventDefault();
+  });
+  //PHONE NUMBER
+  var std_code="<?php
+  echo $STDcode;
+  ?>";
+  var phone_number="<?php
+  echo $PhoneNo;
+  ?>";
+  var result=std_code+'-'+phone_number;
+  var asseseerepflg = "<?php
+  echo $CountryCode;
+  ?>";
+  //alert(asseseerepflg);
+  if(asseseerepflg=='IN')
+  {
+  $("#zipcode").hide();
+  $("#zipcode").val('');
+  $("#pincode").show();
+  }
+  else if(asseseerepflg!='IN')
+  {
+  $("#pincode").hide();
+  $("#pincode").val('');
+  $("#zipcode").show();
+  }
+  var asseseerepflg = "<?php
+  echo $StateCode;
+  ?>";
+  //alert(asseseerepflg);
+  if(asseseerepflg==99)
+  {
+  $("#zipcode").show();
+  $("#pincode").val('');
+  $("#pincode").hide();
+  }
+  else
+  {
+  $("#pincode").show();
+  $("#zipcode").val('');
+  $("#zipcode").hide();
+  }
+  $("#pincode").keypress(function(e) {
+  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+  $("#errmsg1").html("Numbers Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  /* firname message */
+  $("#first_name").keypress(function(e) {
+  if(!(e.which >= 65 && e.which <= 120) && (e.which != 32 && e.which != 0)){
+  $("#errmsg3").html("Alphabets Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  $(".RoadOrStreet").keypress(function(e) {
+  var valid = (e.which >= 48 && e.which <= 57) || (e.which >= 65 && e.which <= 90) || (e.which >= 97 && e.which <= 122);
+  if (!valid) {
+  $("#RoadOrStreet_err").html("No Special Character Are Allowed").show().fadeOut(5000);
+  return false;
+  }
+  });
+  /* middle message */
+  $("#middle_name").keypress(function(e) {
+  if(!(e.which >= 65 && e.which <= 120) && (e.which != 32 && e.which != 0)){
+  $("#errmsg4").html("Alphabets Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  /* lastname message */
+  $("#last_name").keypress(function(e) {
+  if(!(e.which >= 65 && e.which <= 120) && (e.which != 32 && e.which != 0)){
+  $("#errmsg5").html("Alphabets Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  /* mobile no:1 */
+  $("#mobileno1").keypress(function(e) {
+  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+  $("#errmsg6").html("Numbers Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  /* mobile no:2 */
+  $("#mobileno2").keypress(function(e) {
+  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+  $("#errmsg7").html("Numbers Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  /* aadhar number */
+  $("#aadhar").keypress(function(e) {
+  if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+  $("#errmsg8").html("Numbers Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  /* name of representative validation */
+  $("#nameofrepresent").keypress(function(e) {
+  if(!(e.which >= 65 && e.which <= 120) && (e.which != 32 && e.which != 0)){
+  $("#nameofrepresenterrmsg").html("Alphabets Only").show().fadeOut(3000);
+  return false;
+  }
+  });
+  /* pincode and zip validation */
+  $('.country').change(function() {
+  if ($(this).val() != "91") {
+  $("#pincode").hide();
+  $("#pincode").val('');
+  $("#zipcode").show();
+  $("#stateId").val(99);
+  } else {
+  $("#pincode").show();
+  $("#zipcode").hide();
+  $("#zipcode").val('');
+  $("#stateId").val('');
+  }
+  });
+  /* State based  validation */
+  $('#stateId').change(function() {
+  if ($(this).val() != 99) {
+  $(".country").val('91');
+  $("#pincode").show();
+  $("#zipcode").val('');
+  $("#zipcode").hide();
+  } else {
+  $(".country").val('');
+  $("#zipcode").show();
+  $("#pincode").hide();
+  $("#pincode").val('');
+  }
+  });
+  /* status and sex validation */
+  $('.sex').change(function() {
+  if ($(this).val() == "X") {
+  $('.status').val("H");
+  $('.status').prop("readonly", true);
+  $('.aadhar,.aadharid').hide();
+  }
+  if ($(this).val() == "M") {
+  $('.status').val("I");
+  $('.status').prop("readonly", true);
+  $('.aadhar,.aadharid').show();
+  }
+  if ($(this).val() == "T") {
+  $('.status').val("I");
+  $('.status').prop("readonly", true);
+  $('.aadhar,.aadharid').show();
+  }
+  if ($(this).val() == "F") {
+  $('.status').val("I");
+  $('.aadhar').show();
+  }
+  });
+  /* status based changes */
+  $('.status').change(function() {
+  var pan_input=$('#pan').val();
+  var pan_4th_char = pan_input.charAt(3);
+  //alert(pan_4th_char);
+  if ($(this).val() == "H") {
+  if(pan_4th_char!='H'){
+  toastr.error('Your PAN format is Invalid4th letter of PAN must be "H"');
+  $('#pan').focus();
+  }
+  $('.sex').val("X");
+  $('.aadhar').hide();
+  $('.aadharid').hide();
+  } else {
+  if(pan_4th_char!='P'){
+  toastr.error('Your PAN format is Invalid ,4th letter of PAN must be "P"');
+  $('#pan').focus();
+  }
+  $('.sex').val("select");
+  $('.aadhar').show();
+  $('.aadharid').show();
+  }
+  });
+  /* last validation on furnish information  */
+  $('.decider').change(function() {
+  if ($(this).val() == "1") {
+  $("#nameofrepresent").show();;
+  $("#panofreperesent").show();
+  $("#addressofreperesent").show();
+  } else {
+  $("#nameofrepresent").hide();
+  $("#panofreperesent").hide();
+  $("#addressofreperesent").hide();
+  }
+  });
+  });
+  </script>

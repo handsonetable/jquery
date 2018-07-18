@@ -17,17 +17,6 @@
 			  }
 
 
-
-
-
-
-
-
-
-
-
-
-
 //number only
         onkeypress="return isNumberKey(event);"
         function isNumberKey(evt)
@@ -38,6 +27,18 @@
 
                         return true;
                      }
+	
+//select option null -empty 
+	 function business_type(btype){
+			 	var btypereg=$(btype).val();
+			 	if(btypereg.length==''){
+			 		toastr.warning('Business type is required!');
+			 		btype.focus();
+			 	}else{
+			 		return true;
+			 	}
+			 }
+			 
  //pan no
         onblur="validateEmail(this);" 
          function validateEmail(ema) {

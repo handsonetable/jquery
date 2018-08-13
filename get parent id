@@ -1,0 +1,27 @@
+$('.reset_to_client').on('click',function(){
+		var myform=$(this).parents('form');
+		var myformid=$(myform).data('dirid');
+		
+				
+		var myformdata={"eid":"<?php echo $eid; ?>","docs":"replace","taskid":"<?php echo $task_id; ?>","id":myformid};
+		var statuss='';
+		if(myformid==1){
+			/*var formdata1=$('#form'+myformid).serializeJSON();	
+			$.extend( form, {"formdata":{"id":d_id,"pf_registration":formdata1,"status":statuss}} );*/
+		}else if(myformid==2){
+			/*$.extend( form, {"formdata":{"id":d_id,"director":cleanedGridData2,"status":statuss }});
+			$.extend( form, {"tempdata":{"id":d_id,"director":cleanedGridData2,"status":statuss}} );*/
+		}else if(myformid==3){
+			/*$.extend( form, {"formdata":{"id":d_id,"emp_details":t3,"status":statuss}});
+			$.extend( form, {"tempdata":{"id":d_id,"emp_details":t3,"status":statuss}} );*/
+		}
+		
+		var myformdata2=JSON.stringify(form).replace(/'/g,"''");
+		$.ajax({
+                  url: 'https://oov9bkqx1a.execute-api.ap-south-1.amazonaws.com/Common-API/milestones',
+                 type: "POST",
+                 data: myformdata2,
+				 async:false,
+                success: function(msg) {}
+            });
+	});

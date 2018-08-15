@@ -1,2 +1,6 @@
 Range:
 row: http://jsfiddle.net/manishma/AVZJh/light/
+
+//current year
+  var currentYear = (new Date).getFullYear();
+							console.log(currentYear);
